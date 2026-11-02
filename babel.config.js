@@ -6,9 +6,9 @@ module.exports = function (api) {
     // Default ON for E2E builds; the onboarding spec sets
     // E2E_SKIP_ONBOARDING=false so the flow actually mounts.
     const skipOnboarding = isE2E && process.env.E2E_SKIP_ONBOARDING !== 'false';
-    const plusStoreGate =
-      process.env.PLUS_STORE_GATE === 'true' ||
-      (isE2E && process.env.PLUS_STORE_GATE !== 'false');
+    // This personal fork always builds with Plus unlocked. Keep this false
+    // regardless of PLUS_STORE_GATE or E2E_BUILD in the environment.
+    const plusStoreGate = false;
     return `${envName}:${isE2E}:${skipOnboarding}:${plusStoreGate}`;
   });
   const [envName, e2eFlag, skipFlag, gateFlag] = cacheKey.split(':');
